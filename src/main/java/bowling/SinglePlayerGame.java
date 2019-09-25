@@ -9,6 +9,7 @@ public class SinglePlayerGame {
     private int score;
     private int lancer;
     private int coup;
+    private int previous;
     
     
     
@@ -18,6 +19,7 @@ public class SinglePlayerGame {
                 score=0;
                 lancer=0;
                 coup=0;
+                previous=0;
 	}
 
 	/**
@@ -28,43 +30,35 @@ public class SinglePlayerGame {
 	 */
 	public void lancer(int nombreDeQuillesAbattues) {
             
-            if (coup==1){
+            lancer=nombreDeQuillesAbattues;
+            if(coup>=1){
                 coup-=1;
-                score+=2*nombreDeQuillesAbattues+10;
-                
+                score+=lancer;
             }
-            else if(coup==2){
-                
-            }
-            else{
-               if(nombreDeQuillesAbattues<10){
-                   int reste=10;
-                   reste-=nombreDeQuillesAbattues;
-                   score+=nombreDeQuillesAbattues;
-                   if(reste!=0){
-                       /*methode spair*/
-                       coup+=1;
-                   }
-                   else if(nombreDeQuillesAbattues==10){
-                       /*methode strike donc on rajoute 10* garder pour les 2 prochains boules */
-                       coup+=2;
-                       
-                   }
-               }
-            }
-               
-               
+            if(lancer==10){
+               score+=lancer;
+               coup+=2;
 	}
+            else if(lancer<10 || lancer>=0){
+                score+=lancer;
+                if(previous + lancer==10){
+                    coup+=1;
+                }
+                previous=lancer;
+                
+            }
+        }
 
 	/**
 	 * Cette méthode donne le score du joueur
 	 *
 	 * @return Le score du joueur
 	 */
-	public int score() {
+	public int score(){
                 
 		return score;
                 
-	}
+}
+
 }
 
